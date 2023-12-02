@@ -10,7 +10,7 @@ import requests
 from modelscope_agent.tools.tool import Tool, ToolSchema
 from pydantic import ValidationError
 from requests.exceptions import RequestException, Timeout
-
+import uuid
 MAX_RETRY_TIMES = 3
 
 
@@ -44,9 +44,9 @@ class VoiceClone(Tool):
             all_param)
 
     def __call__(self, *args, **kwargs):
-        role_list = []
+        role_list = ['作者']
         if kwargs['role'] in role_list:
-            model_dir = os.path.abspath(f"./voice_clone_files/{kwargs['role']}_pretrain_work_dir")
+            model_dir = os.path.abspath(f"../../../voice_model/{kwargs['role']}_pretrain_work_dir")
             custom_infer_abs = {
                 'voice_name':
                 'F7',
@@ -70,7 +70,14 @@ class VoiceClone(Tool):
 
             inference = pipeline(task=Tasks.text_to_speech, model=model_id)
             output = inference(input=kwargs['text'])
-            return output['output_wav']
+            data = output['output_wav']
+            random_uuid = uuid.uuid4()
+            file_path = './voice_output_files'
+            if not os.path.exists(file_path):
+                os.makedirs(file_path)
+            with open(f'./{file_path}/{random_uuid}.wav', 'wb') as f:
+                    f.write(data)
+            return os.path.abspath(f'./{file_path}/{random_uuid}.wav')
             import IPython.display as ipd
             ipd.Audio(output["output_wav"], rate=16000)
         else:
