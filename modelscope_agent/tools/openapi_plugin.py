@@ -316,9 +316,13 @@ def openapi_schema_convert(schema, auth):
                                     'parameters': parameters_list,
                                     'header': {
                                         'Content-Type': content_type,
-                                        'Authorization': authorization
                                     }
                                 }
+                                if authorization != '':
+                                    config_entry['header'][
+                                        'Authorization'] = authorization
+                                else:
+                                    print('上传的api不需要key')
                             else:
                                 config_entry = {
                                     'name': name,
@@ -330,10 +334,14 @@ def openapi_schema_convert(schema, auth):
                                     'parameters': parameters_list,
                                     'header': {
                                         'Content-Type': content_type,
-                                        'Authorization': authorization,
                                         'X-DashScope-Async': 'enable'
                                     }
                                 }
+                                if authorization != '':
+                                    config_entry['header'][
+                                        'Authorization'] = authorization
+                                else:
+                                    print('上传的api不需要key')
                 else:
                     config_entry = {
                         'name': name,
