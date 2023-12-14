@@ -59,6 +59,7 @@ class QWenVL(Tool):
             retry_times -= 1
             try:
                 if local_file_path.endswith(('.jpeg', '.png', '.jpg')):
+                    text = kwargs.get('text', '帮我分析这张图片')
                     messages = [{
                         'role':
                         'system',
@@ -73,7 +74,7 @@ class QWenVL(Tool):
                                 'image': local_file_path
                             },
                             {
-                                'text': kwargs['text']
+                                'text': text
                             },
                         ]
                     }]
