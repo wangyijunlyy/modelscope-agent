@@ -14,6 +14,9 @@ from .similarity_search import SimilaritySearch
 from .storage_proxy_tool import Storage
 from .web_browser import WebBrowser
 from .web_search import WebSearch
+from .facechain_tool import FacechainTool
+from .sadtalker_tool import SadTalkerTool
+from .voice_clone import VoiceCloneTool
 
 
 def call_tool(plugin_name: str, plugin_args: str) -> str:
