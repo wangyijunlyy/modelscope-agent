@@ -63,7 +63,7 @@ with demo:
             with gr.Column():
                 # Preview
                 user_chatbot = mgr.Chatbot(
-                    value=[[None, '尝试问我一点什么吧～']],
+                    value=[[None, '上传一张照片试试～']],
                     elem_id='user_chatbot',
                     elem_classes=['markdown-body'],
                     avatar_images=avatar_pairs,
@@ -169,4 +169,4 @@ with demo:
     demo.load(init_user, inputs=[state], outputs=[state])
 
 demo.queue()
-demo.launch(show_error=True, max_threads=10)
+demo.launch(show_error=True, max_threads=10,share=True)
