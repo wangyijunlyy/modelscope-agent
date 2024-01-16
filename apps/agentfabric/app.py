@@ -573,10 +573,12 @@ with demo:
 
         # get knowledge from memory, currently get one file
         uploaded_file = None
+        ref_doc = ''
         if len(append_files) > 0:
             uploaded_file = append_files[0]
-        ref_doc = user_memory.run(
-            query=input.text, url=uploaded_file, checked=True)
+        if input.text != '' and uploaded_file != None:
+            ref_doc = user_memory.run(
+                query=input.text, url=uploaded_file, checked=True)
 
         response = ''
         try:
@@ -747,4 +749,4 @@ with demo:
         init_all, inputs=[uuid_str, state], outputs=configure_updated_outputs)
 
 demo.queue()
-demo.launch(show_error=True, max_threads=10)
+demo.launch(show_error=True, max_threads=10,share=True)

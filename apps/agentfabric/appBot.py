@@ -123,10 +123,12 @@ with demo:
 
         # get long term memory knowledge, currently get one file
         uploaded_file = None
+        ref_doc = ''
         if len(append_files) > 0:
             uploaded_file = append_files[0]
-        ref_doc = user_memory.run(
-            query=input.text, url=uploaded_file, checked=True)
+        if input.text != '' and uploaded_file != None:
+            ref_doc = user_memory.run(
+                query=input.text, url=uploaded_file, checked=True)
 
         response = ''
         try:
